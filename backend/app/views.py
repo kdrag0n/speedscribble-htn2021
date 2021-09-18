@@ -9,7 +9,7 @@ from . import ML
 
 main = Blueprint('main', __name__)
 
-@main.route('/imageMatching', methods=['POST'])
+@main.route('/api/v1/get_similarity', methods=['POST'])
 def parse():
     query = request.get_json()['query']
     reference = request.files['reference']
