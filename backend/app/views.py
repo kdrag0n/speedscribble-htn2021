@@ -9,9 +9,6 @@ from . import ML
 
 main = Blueprint('main', __name__)
 
-
-
-
 @main.route('/imageMatching', methods=['POST'])
 def parse():
     query = request.get_json()['query']
