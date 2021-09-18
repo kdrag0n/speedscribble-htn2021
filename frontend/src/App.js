@@ -1,27 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-import CanvasDraw from 'react-canvas-draw';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import Login from './pages/Login'
+import Home from './pages/Home'
+import Game from './pages/Game'
+import SignUp from './pages/SignUp'
+
+import Header from './components/Header'
+import AuthedRoute from './components/AuthedRoute'
+
+import { AuthContextProvider, useAuthContext } from './store'
 
 function App() {
+  // const { token } = useAuthContext()
+
+  // const authed = !!token
+  const authed = true
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <CanvasDraw />
-    </div>
+    <Router>
+      <div className='h-screen max-w-7xl mx-auto px-4 sm:px-6'>
+        <Header authed={authed} />
+        <AuthContextProvider>
+          <Switch>
+            <AuthedRoute auth={!authed} path='/login' component={Login} redirect='/' />
+            <AuthedRoute auth={!authed} path='/signup' component={SignUp} redirect='/' />
+
+            <AuthedRoute auth={authed} path='/game' component={Game} redirect='/login' />
+
+            <Route path='/' component={Home} />
+          </Switch>
+        </AuthContextProvider>
+      </div>
+    </Router>
   );
 }
 
