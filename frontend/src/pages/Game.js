@@ -40,7 +40,7 @@ const Game = () => {
             <h2 className='font-semibold text-2xl'>Drawing Pad</h2>
           </div>
           <div className='p-4 flex items-center justify-center'>
-            <Canvas ref={el} canvasWidth={500} canvasHeight={500} brushRadius={5} hideGrid />
+            <Canvas ref={el} canvasWidth={500} canvasHeight={500} brushRadius={3} hideGrid />
           </div>
         </div>
       </div>
