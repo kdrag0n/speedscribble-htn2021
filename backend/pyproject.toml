@@ -6,6 +6,8 @@ authors = ["Danny Lin <danny@kdrag0n.dev>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+Flask = "^2.0.1"
+psycopg2-binary = "^2.9.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
