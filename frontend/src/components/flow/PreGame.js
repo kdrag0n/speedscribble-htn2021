@@ -39,7 +39,7 @@ const Waiting = () => {
   const startGame = (
     <Button onClick={async () => {
       await fetcher(`${baseUrl}/api/v1/game/${id}/start`, { method: 'POST' })
-    }} className='mx-auto px-4'>Start Game</Button>
+    }} className='mx-auto px-4'>Start game</Button>
   )
 
   const ready = flowState === 'ready'
