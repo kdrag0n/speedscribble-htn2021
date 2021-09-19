@@ -21,7 +21,7 @@ const Home = () => {
   }
 
   return (
-    <Layout title='HTN Draw' subtitle='Draw and compete with your friends in 1 minute!'>
+    <Layout title='Speed Scribble' subtitle='Draw and compete with your friends in 1 minute!'>
       <Button onClick={() => createGame()}>Play</Button>
     </Layout>
   )
