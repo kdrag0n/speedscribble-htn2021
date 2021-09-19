@@ -3,6 +3,7 @@ import io
 import math
 import os
 import urllib
+import random
 from math import sqrt
 
 import cv2
@@ -28,23 +29,28 @@ def buf_to_image(buf):
 def evaluate_similarity(reference, drawing):
     #OPENCV Edge detection
 
+    rand_key = str(random.randint(0, 99999999999))
+
     reference = buf_to_image(reference)
     edges = cv2.Canny(reference, 90, 100)
     reference = cv2.bitwise_not(edges)
-    cv2.imwrite('/tmp/reference.png', reference)
+    cv2.imwrite('/tmp/reference_{rand_key}.png', reference)
 
     drawing = buf_to_image(drawing)
     edges = cv2.Canny(drawing, 90, 100)
     drawing = cv2.bitwise_not(edges)
-    cv2.imwrite('/tmp/drawing.png', drawing)
+    cv2.imwrite('/tmp/drawing_{rand_key}.png', drawing)
 
-    helper = TensorVector('/tmp/reference.png')
+    helper = TensorVector('/tmp/reference_{rand_key}.png')
     vector = helper.process()
-    helper = TensorVector('/tmp/drawing.png')
+    helper = TensorVector('/tmp/drawing_{rand_key}.png')
     vector2 = helper.process()
 
     print(vector)
     print(vector2)
+
+    os.remove('/tmp/reference_{rand_key}.png')
+    os.remove('/tmp/drawing_{rand_key}.png')
     return cosineSim(vector, vector2)
 
 class TensorVector(object):
