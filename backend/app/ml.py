@@ -31,14 +31,16 @@ def evaluate_similarity(reference, drawing):
     reference = buf_to_image(reference)
     edges = cv2.Canny(reference, 90, 100)
     reference = cv2.bitwise_not(edges)
+    cv2.imwrite('/tmp/reference.png', reference)
 
     drawing = buf_to_image(drawing)
     edges = cv2.Canny(drawing, 90, 100)
     drawing = cv2.bitwise_not(edges)
+    cv2.imwrite('/tmp/drawing.png', drawing)
 
-    helper = TensorVector(reference)
+    helper = TensorVector('/tmp/reference.png')
     vector = helper.process()
-    helper = TensorVector(drawing)
+    helper = TensorVector('/tmp/drawing.png')
     vector2 = helper.process()
 
     print(vector)
@@ -51,8 +53,8 @@ class TensorVector(object):
         self.file = file
 
     def process(self):
-        img = tf.convert_to_tensor(self.file, dtype=tf.float32)
-        img = tf.io.decode_jpeg(img)
+        img = tf.io.read_file(self.file)
+        img = tf.io.decode_jpeg(img, channels=3)
         img = tf.image.resize_with_pad(img, 224, 224)
         img = tf.image.convert_image_dtype(img,tf.float32)[tf.newaxis, ...]
         features = m(img)
