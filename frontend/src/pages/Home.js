@@ -1,8 +1,13 @@
+import { Link } from 'react-router-dom'
+
+import Layout from '../components/Layout'
+import Button from '../components/Button'
+
 const Home = () => {
   return (
-    <div className='max-w-screen-sm mx-auto flex flex-col items-center py-10'>
-      <h1 className='font-extrabold text-5xl'>Game</h1>
-    </div>
+    <Layout title='HTN Game' subtitle='A cool game'>
+      <Button el={Link} to='/play/1'>New Game</Button>
+    </Layout>
   )
 }
 

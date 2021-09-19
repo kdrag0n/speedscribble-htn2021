@@ -1,37 +1,33 @@
 import React from 'react'
 
+import { SWRConfig } from 'swr'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Login from './pages/Login'
 import Home from './pages/Home'
-import Game from './pages/Game'
-import SignUp from './pages/SignUp'
+import Play from './pages/Play'
 
-import Header from './components/Header'
-import AuthedRoute from './components/AuthedRoute'
-
-import { AuthContextProvider, useAuthContext } from './store'
+import { GameContextProvider } from './store'
+import { fetcher } from './util'
 
 function App() {
   // const { token } = useAuthContext()
 
   // const authed = !!token
-  const authed = true
 
   return (
     <Router>
-      <div className='h-screen max-w-7xl mx-auto px-4 sm:px-6'>
-        <Header authed={authed} />
-        <AuthContextProvider>
-          <Switch>
-            <AuthedRoute auth={!authed} path='/login' component={Login} redirect='/' />
-            <AuthedRoute auth={!authed} path='/signup' component={SignUp} redirect='/' />
-
-            <AuthedRoute auth={authed} path='/game' component={Game} redirect='/login' />
-
-            <Route path='/' component={Home} />
-          </Switch>
-        </AuthContextProvider>
+      <div className='p-4'>
+        <h1 className='font-extrabold text-4xl'>Game</h1>
+      </div>
+      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
+        <SWRConfig value={{ fetcher }}>
+          <GameContextProvider>
+            <Switch>
+              <Route path='/play/:id' component={Play} />
+              <Route path='/' component={Home} />
+            </Switch>
+          </GameContextProvider>
+        </SWRConfig>
       </div>
     </Router>
   );
