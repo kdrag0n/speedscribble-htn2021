@@ -1,9 +1,12 @@
+import { useEffect } from 'react'
+
+import { ClipboardCopyIcon } from '@heroicons/react/solid'
+
 import Layout from '../Layout'
 import Button from '../Button'
 
 import { useGameContext } from '../../store'
 import { baseUrl, fetcher } from '../../util'
-import { useEffect } from 'react'
 
 const Waiting = () => {
   const { id, flowState, playerId, setPlayerId } = useGameContext()
@@ -22,7 +25,7 @@ const Waiting = () => {
   const waitingEls = (
     <>
       <input className='bg-gray-100 border-2 border-gray-600 rounded-md p-2 mr-2 flex-1' disabled value={url} />
-      <Button onClick={() => navigator.clipboard.writeText(url)}>Copy</Button>
+      <Button onClick={() => navigator.clipboard.writeText(url)}><ClipboardCopyIcon className='h-5 w-5' /></Button>
     </>
   )
 

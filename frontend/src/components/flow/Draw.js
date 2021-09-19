@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react'
 
 import Canvas from 'react-canvas-draw'
 
+import {  TrashIcon, ReplyIcon } from '@heroicons/react/solid'
+
 import Layout from '../Layout'
 import Button from '../Button'
 import Countdown from '../Countdown'
@@ -71,8 +73,8 @@ const Draw = () => {
       <div className='p-4 bg-gray-100 rounded-lg'>
         <div className='flex justify-around'>
           <div className='flex justify-center mr-4 flex-col'>
-            <Button className='mb-4' onClick={() => { el.current.undo() }}>Undo</Button>
-            <Button className='mb-4' onClick={() => { el.current.clear() }}>Clear</Button>
+            <Button className='mb-4' onClick={() => { el.current.undo() }}><ReplyIcon className='w-5 h-5' /></Button>
+            <Button className='mb-4' onClick={() => { el.current.clear() }}><TrashIcon className='w-5 h-5' /></Button>
           </div>
 
           <Canvas ref={el} canvasWidth={500} canvasHeight={500} brushRadius={3} hideGrid hideInterface lazyRadius={0} brushColor={'#000000'} />
