@@ -17,6 +17,11 @@ main = Blueprint('main', __name__)
 
 images = os.listdir('images')
 
+@main.after_request
+def set_cors_header(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
 @main.route('/assets/reference_images/<path>')
 def get_reference_image(path):
     return send_from_directory(current_app.config['IMAGES_DIR'], path)
