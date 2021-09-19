@@ -19,7 +19,9 @@ images = os.listdir('images')
 
 @main.after_request
 def set_cors_header(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
 @main.route('/assets/reference_images/<path>')
@@ -118,8 +120,11 @@ def start_game(game_id):
 
     return jsonify({})
 
-@main.route('/api/v1/game/<game_id>/submit_drawing', methods=['POST'])
+@main.route('/api/v1/game/<game_id>/submit_drawing', methods=['POST', 'OPTIONS'])
 def submit_drawing(game_id):
+    if request.method == 'OPTIONS':
+        return jsonify({})
+
     player_id = request.args.get('player')
     image = request.get_data(cache=False)
     game = Game.query.filter_by(id=game_id).first()
