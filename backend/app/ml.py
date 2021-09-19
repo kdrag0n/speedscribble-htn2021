@@ -1,16 +1,17 @@
+import base64
+import io
+import math
+import os
+import urllib
+from math import sqrt
+
+import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import tensorflow as tf
 import tensorflow_hub as hub
-import numpy as np
-import os
-import pandas as pd
-import matplotlib.pyplot as plt 
-import base64
 from PIL import Image
-import io
-import math 
-from math import sqrt
-import urllib
-import cv2
 
 np.random.seed(1337)
 
@@ -21,12 +22,17 @@ m = tf.keras.Sequential([
 ])
 m.build([None, 224, 224, 3])  # Batch input shape.
 
-def MLModel(reference, drawing):
+def buf_to_image(buf):
+    return cv2.imdecode(np.frombuffer(buf, dtype=np.uint8), cv2.IMREAD_GRAYSCALE)
+
+def evaluate_similarity(reference, drawing):
     #OPENCV Edge detection
 
+    reference = buf_to_image(reference)
     edges = cv2.Canny(reference, 90, 100)
     reference = cv2.bitwise_not(edges)
 
+    drawing = buf_to_image(drawing)
     edges = cv2.Canny(drawing, 90, 100)
     drawing = cv2.bitwise_not(edges)
 
@@ -38,24 +44,6 @@ def MLModel(reference, drawing):
     print(vector)
     print(vector2)
     return cosineSim(vector, vector2)
-
-
-def convertBase64(FileName):
-    """
-    Return the Numpy array for a image 
-    """
-    with open(FileName, "rb") as f:
-        data = f.read()
-        
-    res = base64.b64encode(data)
-    
-    base64data = res.decode("UTF-8")
-    
-    imgdata = base64.b64decode(base64data)
-    
-    image = Image.open(io.BytesIO(imgdata))
-    
-    return np.array(image)
 
 class TensorVector(object):
 
