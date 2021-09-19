@@ -89,6 +89,8 @@ def start_game(game_id):
     players = Player.query.filter_by(game_id=game_id).all()
     if len(players) < 2:
         abort(400)
+    if game.started:
+        return jsonify({})
 
     game.started = True
     game.started_at = datetime.now()
