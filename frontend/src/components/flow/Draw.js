@@ -21,7 +21,7 @@ const Draw = () => {
       const canvas = el.current.canvas['drawing']
 
       ctx.fillStyle = 'white'
-      ctx.fillRect(0,0,canvas.width, canvas.height)
+      ctx.fillRect(0,0, canvas.width, canvas.height)
     }
   }, [el])
 
@@ -45,7 +45,7 @@ const Draw = () => {
     drawing.toBlob(async (blob) => {
       const file = new File([blob], 'drawing.png', { type: 'image/png' })
 
-      console.log(blob, file)
+      // console.log(blob, file)
 
       await fetcher(`${baseUrl}/api/v1/game/${id}/submit_drawing?player=${playerId}`, {
         method: 'POST',

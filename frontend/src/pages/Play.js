@@ -10,6 +10,7 @@ import Results from '../components/flow/Results'
 import { baseUrl, fetcher } from '../util'
 import { useGameContext } from '../store'
 import useSWR from 'swr'
+import Layout from '../components/Layout'
 
 const Game = () => {
   const history = useHistory()
@@ -18,7 +19,7 @@ const Game = () => {
   const { id: paramsId } = useParams()
   const { id, setId, flowState, setRefImage, setFlowState } = useGameContext()
 
-  const { data: gameInfo } = useSWR(`${baseUrl}/api/v1/game/${id}/info`, fetcher, { refreshInterval: 100 })
+  const { data: gameInfo, error } = useSWR(`${baseUrl}/api/v1/game/${id}/info`, fetcher, { refreshInterval: 100 })
 
   // initial check on mount
   useEffect(() => {
@@ -57,6 +58,11 @@ const Game = () => {
       }
     }
   }, [gameInfo, flowState, history, ready, setFlowState, setRefImage, paramsId, id, setId])
+
+  if (!gameInfo) return (
+    <Layout title='Loading...' />
+  )
+  if (error) history.push('/')
 
   if (!ready) return null
 

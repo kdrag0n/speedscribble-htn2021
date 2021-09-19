@@ -46,8 +46,9 @@ const Results = ({ winner, drawings, nextGameId }) => {
   const { setId, playerId, refImage, setPlayerId, setFlowState, setRefImage } = useGameContext()
 
   // console.log(winner, drawings)
-  if (!drawings || (drawings && Object.keys(drawings).length === 0)) return null
-  if (!winner) return null
+  if (!drawings || (drawings && Object.keys(drawings).length === 0) || !winner) return (
+    <Layout title='Loading results...' />
+  )
 
   const iWon = winner === playerId
 
