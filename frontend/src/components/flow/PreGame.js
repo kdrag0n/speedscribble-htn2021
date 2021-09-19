@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import Layout from '../Layout'
@@ -17,6 +18,10 @@ const Waiting = ({ ready = false }) => {
   const startGame = (
     <Button onClick={() => null} className='mx-auto'>Start Game</Button>
   )
+
+  useEffect(() => {
+    navigator.clipboard.writeText(url)
+  }, [url])
 
   return (
     <Layout title={ready ? 'Ready to start' : 'Share this link with a friend'} subtitle={ready ? 'Opponent connected' : 'Waiting for opponent…'}>

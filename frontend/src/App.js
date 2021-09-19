@@ -16,18 +16,20 @@ function App() {
 
   return (
     <Router>
-      <div className='p-4'>
-        <h1 className='font-extrabold text-4xl'>Game</h1>
-      </div>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6'>
-        <SWRConfig value={{ fetcher }}>
-          <GameContextProvider>
-            <Switch>
-              <Route path='/play/:id' component={Play} />
-              <Route path='/' component={Home} />
-            </Switch>
-          </GameContextProvider>
-        </SWRConfig>
+      <div className='flex flex-col min-h-screen'>
+        <div className='p-4'>
+          <h1 className='font-semibold text-xl'>Game</h1>
+        </div>
+        <div className='flex-grow max-w-7xl mx-auto px-4 sm:px-6 grid place-items-center'>
+          <SWRConfig value={{ fetcher }}>
+            <GameContextProvider>
+              <Switch>
+                <Route path='/play/:id' component={Play} />
+                <Route path='/' component={Home} />
+              </Switch>
+            </GameContextProvider>
+          </SWRConfig>
+        </div>
       </div>
     </Router>
   );
