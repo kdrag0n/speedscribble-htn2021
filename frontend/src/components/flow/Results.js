@@ -9,7 +9,7 @@ import { baseUrl, fetcher } from '../../util'
 const Winner = ({ title, similarity, img }) => {
   return (
     <div className='flex flex-col col-span-3 items-center justify-center'>
-      <h2 className='font-medium text-2xl text-indigo-700 mb-2 mt-auto'>{title}</h2>
+      <h2 className='font-medium text-2xl mb-2 mt-auto'>{title}</h2>
       <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similarity</h3>
       <div className='p-4 bg-green-300 rounded-3xl flex items-center justify-center shadow-2xl'>
         <img className='w-auto rounded-xl' src={img} alt='img' />
@@ -21,7 +21,7 @@ const Winner = ({ title, similarity, img }) => {
 const Loser = ({ title, similarity, img }) => {
   return (
     <div className='flex flex-col col-span-2 items-center justify-center'>
-      <h2 className='font-medium text-2xl text-indigo-700 mb-2'>{title}</h2>
+      <h2 className='font-medium text-2xl mb-2'>{title}</h2>
       <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similarity</h3>
       <div className='p-2 bg-gray-100 rounded-lg flex items-center justify-center'>
         <img className='w-auto rounded-lg' src={img} alt='img' />
@@ -33,7 +33,7 @@ const Loser = ({ title, similarity, img }) => {
 const Reference = ({ img }) => {
   return (
     <div className='flex flex-col col-span-2 items-center justify-center'>
-      <h2 className='font-medium text-2xl text-indigo-600 mb-6'>Reference</h2>
+      <h2 className='font-medium text-2xl mb-6'>Reference</h2>
       <div className='p-2 bg-gray-100 rounded-lg flex items-center justify-center'>
         <img className='w-auto rounded-lg' src={img} alt='reference' />
       </div>
@@ -68,16 +68,16 @@ const Results = ({ winner, drawings, nextGameId }) => {
   }
 
   return (
-    <Layout title={iWon ? 'You win!' : 'You lose'}>
-      <div className='space-y-4 lg:space-y-0 lg:grid grid-cols-7 gap-4'>
+    <Layout title={iWon ? 'You win!' : 'You lose'} textClassName={iWon ? 'text-green-600' : 'text-red-600'}>
+      <div className='space-y-4 lg:space-y-0 lg:grid grid-cols-7 gap-6 mb-6'>
         <Reference img={refImage} />
 
         <MyComponent title='Your drawing' similarity={Math.floor(drawings[playerId].similarity * 100)} img={drawings[playerId].url} />
       
-        <FriendComponent title={'Your friend\'s drawing'} similarity={Math.floor(drawings[friendId].similarity * 100)} img={drawings[friendId].url} />
+        <FriendComponent title={'Opponent\'s drawing'} similarity={Math.floor(drawings[friendId].similarity * 100)} img={drawings[friendId].url} />
       </div>
 
-      {nextGameId && <Button className='mt-4' onClick={() => newGame()}>New Game</Button>}
+      {nextGameId && <Button className='px-4 mt-4' onClick={() => newGame()}>Play again</Button>}
     </Layout>
   )
 }
