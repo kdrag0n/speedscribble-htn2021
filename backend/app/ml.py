@@ -43,8 +43,6 @@ def evaluate_similarity(reference, drawing):
     helper = TensorVector('/tmp/drawing.png')
     vector2 = helper.process()
 
-    print(vector)
-    print(vector2)
     return cosineSim(vector, vector2)
 
 class TensorVector(object):

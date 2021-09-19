@@ -33,6 +33,10 @@ const Waiting = () => {
   )
 
   const ready = flowState === 'ready'
+  
+  useEffect(() => {
+    navigator.clipboard.writeText(url)
+  }, [url])
 
   return (
     <Layout title={ready ? 'Ready to start' : 'Share this link with a friend'} subtitle={ready ? 'Opponent connected' : 'Waiting for opponent…'}>
