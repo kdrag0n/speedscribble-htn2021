@@ -18,8 +18,8 @@ def create_app():
         app.config['API_BASE_URL'] = 'https://api.speedscribble.tech'
     else:
         app.config['FRONTEND_BASE_URL'] = 'http://localhost:3000'
-        #app.config['API_BASE_URL'] = 'http://localhost:5000'
-        app.config['API_BASE_URL'] = 'https://billy-moscow-empirical-particularly.trycloudflare.com'
+        app.config['API_BASE_URL'] = 'http://localhost:5000'
+        #app.config['API_BASE_URL'] = 'https://billy-moscow-empirical-particularly.trycloudflare.com'
     app.config['IMAGES_DIR'] = f'{Path().absolute()}/images'
 
     db.init_app(app)
