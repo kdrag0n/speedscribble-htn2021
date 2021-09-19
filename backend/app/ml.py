@@ -16,7 +16,7 @@ from PIL import Image
 np.random.seed(1337)
 
 m = tf.keras.Sequential([
-    hub.KerasLayer("https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4", output_shape=[1280],
+    hub.KerasLayer("https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5",
                    trainable=False),  # Can be True, see below.
     tf.keras.layers.Dense(100, activation='softmax')
 ])
@@ -56,7 +56,7 @@ class TensorVector(object):
         img = tf.io.read_file(self.file)
         img = tf.io.decode_jpeg(img, channels=3)
         img = tf.image.resize_with_pad(img, 224, 224)
-        img = tf.image.convert_image_dtype(img,tf.float32)[tf.newaxis, ...]
+        img = tf.image.convert_image_dtype(img,tf.float32)[tf.newaxis, ...] / 255.0
         features = m(img)
         feature_set = np.squeeze(features)
         return list(feature_set)
