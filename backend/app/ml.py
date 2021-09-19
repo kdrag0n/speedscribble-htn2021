@@ -16,7 +16,7 @@ from PIL import Image
 np.random.seed(1337)
 
 m = tf.keras.Sequential([
-    hub.KerasLayer("https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5", output_shape=[1280],
+    hub.KerasLayer("https://tfhub.dev/google/tf2-preview/mobilenet_v2/feature_vector/4", output_shape=[1280],
                    trainable=False),  # Can be True, see below.
     tf.keras.layers.Dense(100, activation='softmax')
 ])
