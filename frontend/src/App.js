@@ -20,7 +20,7 @@ function App() {
     <Router>
       <div className='flex flex-col min-h-screen'>
         <div className='p-4 flex items-center'>
-          <Logo className='text-indigo-400 fill-current' />
+          <Logo className='text-indigo-400 fill-current' width='50' height='60' />
           <h1 className='font-semibold text-2xl ml-2 text-transparent bg-gradient-to-r from-indigo-400 to-indigo-700 bg-clip-text'>Speed Scribble</h1>
         </div>
         <div className='flex-grow max-w-7xl mx-auto px-4 sm:px-6 grid place-items-center'>
