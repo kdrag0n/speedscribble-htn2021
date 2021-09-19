@@ -30,7 +30,7 @@ const Home = () => {
   )
 
   return (
-    <Layout title={title} subtitle='Draw and compete with your friends in 1 minute!'>
+    <Layout title={title} subtitle='Draw against your friends in 1 minute!'>
       <Button onClick={() => createGame()}>Play</Button>
     </Layout>
   )
