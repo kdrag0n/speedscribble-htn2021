@@ -99,6 +99,12 @@ def get_game_info(game_id):
 
 @main.route('/api/v1/game/<game_id>/new_player', methods=['POST'])
 def new_player(game_id):
+    game = Game.query.filter_by(id=game_id).first()
+    if not game:
+        abort(404)
+    if game.started or game.finished:
+        abort(400)
+
     player_id = str(uuid.uuid4())
     player = Player(id=player_id, game_id=game_id, online=True)
     db.session.add(player)
