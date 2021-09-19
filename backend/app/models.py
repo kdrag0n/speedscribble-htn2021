@@ -1,12 +1,23 @@
 from . import db
 
-class Entry(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    positions = db.Column(db.String(500))
-    board = db.Column(db.String(500))
-    nextSteps = db.Column(db.String(50))
-    turn = db.Column(db.String(10))
 
 class Game(db.Model):
-    __bind_key__ = 'games'
-    link = db.Column(db.String(100), primary_key=True)
+    id = db.Column(db.Text, primary_key=True, nullable=False)
+    reference_image = db.Column(db.Text, nullable=False)
+    time_limit = db.Column(db.Integer, nullable=False)
+    started = db.Column(db.Boolean, nullable=False, default=False)
+    started_at = db.Column(db.DateTime)
+    winner_player_id = db.Column(db.Text)
+    finished = db.Column(db.Boolean, nullable=False, default=False)
+
+class Player(db.Model):
+    id = db.Column(db.Text, primary_key=True, nullable=False)
+    game_id = db.Column(db.Text, nullable=False)
+    online = db.Column(db.Boolean, nullable=False)
+
+class Drawing(db.Model):
+    id = db.Column(db.Text, primary_key=True, nullable=False)
+    game_id = db.Column(db.Text, nullable=False)
+    player_id = db.Column(db.Text, nullable=False)
+    image = db.Column(db.LargeBinary, nullable=False)
+    similarity = db.Column(db.Float, nullable=False)
