@@ -5,8 +5,8 @@ import Button from '../components/Button'
 
 const Home = () => {
   return (
-    <Layout title='HTN Game' subtitle='A cool game'>
-      <Button el={Link} to='/play/1'>New Game</Button>
+    <Layout title='HTN Draw' subtitle='Draw and compete with your friends in 2 minutes!'>
+      <Button el={Link} to='/play/1'>Play</Button>
     </Layout>
   )
 }

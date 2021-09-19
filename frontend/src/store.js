@@ -22,7 +22,7 @@ export const GameContextProvider = ({ children }) => {
   const [localImage, setLocalImage] = useState('')
   const [refImage, setRefImage] = useState('')
 
-  const [flowState, setFlowState] = useState('pregame')
+  const [flowState, setFlowState] = useState('results')
 
   return (
     <GameContext.Provider value={{ id, setId, image: localImage, setImage: setLocalImage, refImage, setRefImage, flowState, setFlowState }}>

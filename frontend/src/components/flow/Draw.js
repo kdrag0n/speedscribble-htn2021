@@ -26,12 +26,14 @@ const Draw = () => {
 
   return (
     <Layout title={'Draw'} subtitle={`Recreate the picture you saw`}>
-      <div className='p-4 bg-gray-100 rounded-md'>
-        <Canvas ref={el} canvasWidth={500} canvasHeight={500} brushRadius={3} hideGrid hideInterface />
+      <div className='p-4 bg-gray-100 rounded-lg'>
+        <div className='flex justify-around'>
+          <div className='flex justify-center mr-4 flex-col'>
+            <Button className='mb-4' onClick={() => { el.current.undo() }}>Undo</Button>
+            <Button className='mb-4' onClick={() => { el.current.clear() }}>Clear</Button>
+          </div>
 
-        <div className='flex justify-around mt-4'>
-          <Button onClick={() => { el.current.undo() }}>Undo</Button>
-          <Button onClick={() => { el.current.clear() }}>Clear</Button>
+          <Canvas ref={el} canvasWidth={500} canvasHeight={500} brushRadius={3} hideGrid hideInterface lazyRadius={0} brushColor={'#000000'} />
         </div>
       </div>
       <Countdown totalTime={30} />

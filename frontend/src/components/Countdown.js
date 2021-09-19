@@ -19,7 +19,7 @@ const Countdown = ({ totalTime = 10, onCompleted = () => null }) => {
 
   return (
     <>
-      <span className='font-semibold mt-12 mb-4 text-2xl text-gray-700'>{time} {time !== 1 ? 'seconds' : 'second'} left</span>
+      <span className='font-medium mt-12 mb-4 text-2xl text-gray-600'>{time} {time !== 1 ? 'seconds' : 'second'} left</span>
       <div className='overflow-hidden h-2 mb-4 text-xs flex rounded bg-indigo-200 w-full max-w-screen-md'>
         <div style={{ width: `${(time / totalTime) * 100}%` }} className='shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-600 transition-all duration-1000' />
       </div>
