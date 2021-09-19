@@ -12,7 +12,7 @@ const Winner = ({ title, similarity, img }) => {
   return (
     <div className='flex flex-col col-span-3 items-center justify-center'>
       <h2 className='font-medium text-2xl mb-2 mt-auto'>{title}</h2>
-      <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similarity</h3>
+      <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similar</h3>
       <div className='p-4 bg-green-300 rounded-3xl flex items-center justify-center shadow-2xl'>
         <img className='w-auto rounded-xl' src={img} alt='img' />
       </div>
@@ -24,7 +24,7 @@ const Loser = ({ title, similarity, img }) => {
   return (
     <div className='flex flex-col col-span-2 items-center justify-center'>
       <h2 className='font-medium text-2xl mb-2'>{title}</h2>
-      <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similarity</h3>
+      <h3 className='text-lg text-gray-700 mb-6'>{similarity}% similar</h3>
       <div className='p-2 bg-gray-100 rounded-lg flex items-center justify-center'>
         <img className='w-auto rounded-lg' src={img} alt='img' />
       </div>
