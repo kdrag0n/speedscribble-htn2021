@@ -12,7 +12,7 @@ const Waiting = () => {
   const { id, flowState, playerId, setPlayerId } = useGameContext()
 
   useEffect(() => {
-    if (!playerId) {
+    if (!playerId && !!id) {
       (async () => {
         const { id: newPlayerId } = await fetcher(`${baseUrl}/api/v1/game/${id}/new_player`, { method: 'POST' })
         setPlayerId(newPlayerId)

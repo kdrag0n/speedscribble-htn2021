@@ -16,11 +16,11 @@ const Game = () => {
   const history = useHistory()
   const [ready, setReady] = useState(false)
 
-  const { id: paramsId } = useParams()
+  let { id: paramsId } = useParams()
   const { id, setId, flowState, setRefImage, setFlowState } = useGameContext()
 
   if (!id) setId(paramsId)
-  const { data: gameInfo, error } = useSWR(`${baseUrl}/api/v1/game/${id}/info`, fetcher, { refreshInterval: 100 })
+  const { data: gameInfo, error } = useSWR(`${baseUrl}/api/v1/game/${id || paramsId}/info`, fetcher, { refreshInterval: 100 })
 
   // initial check on mount
   useEffect(() => {
