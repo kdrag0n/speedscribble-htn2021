@@ -56,7 +56,7 @@ const Game = () => {
         default: break
       }
     }
-  }, [gameInfo, flowState, history, ready, setFlowState, setRefImage, paramsId, setId])
+  }, [gameInfo, flowState, history, ready, setFlowState, setRefImage, paramsId, id, setId])
 
   if (!ready) return null
 

@@ -16,7 +16,7 @@ const GameContext = React.createContext({
   refImage: '',
   setRefImage: (image) => null,
   
-  flowState: 'pregame',
+  flowState: '',
   setFlowState: (state) => null
 })
 
@@ -29,7 +29,7 @@ export const GameContextProvider = ({ children }) => {
   const [localImage, setLocalImage] = useState('')
   const [refImage, setRefImage] = useState('')
 
-  const [flowState, setFlowState] = useState('results')
+  const [flowState, setFlowState] = useState('pregame')
 
   return (
     <GameContext.Provider value={{ id, setId, playerId, setPlayerId, image: localImage, setImage: setLocalImage, refImage, setRefImage, flowState, setFlowState }}>
