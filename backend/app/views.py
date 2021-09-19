@@ -7,6 +7,7 @@ from datetime import datetime
 
 from flask import (Blueprint, abort, current_app, jsonify, request, safe_join,
                    send_file, send_from_directory)
+from gcloud import storage
 
 from app import db
 
@@ -16,6 +17,10 @@ from .models import *
 main = Blueprint('main', __name__)
 
 images = os.listdir('images')
+
+GCS_BUCKET = 'speedscribble-htn'
+client = storage.Client(project='htn21-326500')
+bucket = client.get_bucket('speedscribble-htn')
 
 @main.after_request
 def set_cors_header(response):
@@ -85,7 +90,7 @@ def get_game_info(game_id):
         'winner': game.winner_player_id,
         'drawings': {
             drawing.player_id: {
-                'url': f'{assets_base}/drawing_images/{drawing.id}.png',
+                'url': f'https://{GCS_BUCKET}.storage.googleapis.com/{drawing.id}.png',
                 'similarity': drawing.similarity,
             }
             for drawing in drawings
@@ -144,8 +149,12 @@ def submit_drawing(game_id):
     # ML
     similarity = ml.evaluate_similarity(reference, image)
 
+    # Upload to GCS
     drawing_id = str(uuid.uuid4())
-    drawing = Drawing(id=drawing_id, game_id=game_id, player_id=player_id, image=image, similarity=similarity)
+    blob = bucket.blob(f'{drawing_id}.png')
+    blob.upload_from_file(io.BytesIO(image), size=len(image))
+
+    drawing = Drawing(id=drawing_id, game_id=game_id, player_id=player_id, similarity=similarity)
     db.session.add(drawing)
 
     # Not the first submission = game finished

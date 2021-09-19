@@ -20,5 +20,4 @@ class Drawing(db.Model):
     id = db.Column(db.Text, primary_key=True, nullable=False)
     game_id = db.Column(db.Text, nullable=False)
     player_id = db.Column(db.Text, nullable=False)
-    image = db.Column(db.LargeBinary, nullable=False)
     similarity = db.Column(db.Float, nullable=False)
