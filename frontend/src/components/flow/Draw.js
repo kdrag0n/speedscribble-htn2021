@@ -17,17 +17,6 @@ const Draw = () => {
   const { id, playerId, setFlowState } = useGameContext()
 
   useEffect(() => {
-    if (el.current.ctx['drawing'] && el.current.canvas['drawing']) {
-      console.log('filling')
-      const ctx = el.current.ctx['drawing']
-      const canvas = el.current.canvas['drawing']
-
-      ctx.fillStyle = 'white'
-      ctx.fillRect(0,0, canvas.width, canvas.height)
-    }
-  }, [el])
-
-  useEffect(() => {
     if (!el.current) return
 
     const listener = (event) => {
