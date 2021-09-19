@@ -4,5 +4,5 @@ export function classNames(...classes) {
 
 export const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-export const baseUrl = 'https://billy-moscow-empirical-particularly.trycloudflare.com'
+export const baseUrl = 'https://api.speedscribble.tech'
 export const frontendBaseUrl = 'https://speedscribble.tech'
