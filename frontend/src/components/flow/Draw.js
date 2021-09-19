@@ -42,7 +42,17 @@ const Draw = () => {
 
   const submit = async () => {
     const drawing = el.current.canvas['drawing']
-    drawing.toBlob(async (blob) => {
+
+    const exportCanvas = document.createElement('canvas')
+    exportCanvas.width = drawing.width
+    exportCanvas.height = drawing.height
+
+    const ctx = exportCanvas.getContext('2d')
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+    ctx.drawImage(drawing, 0, 0)
+
+    exportCanvas.toBlob(async (blob) => {
       const file = new File([blob], 'drawing.png', { type: 'image/png' })
 
       // console.log(blob, file)
