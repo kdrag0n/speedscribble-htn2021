@@ -63,7 +63,8 @@ class TensorVector(object):
         self.file = file
 
     def process(self):
-        img = tf.io.decode_jpeg(self.file)
+        img = tf.convert_to_tensor(self.file, dtype=tf.float32)
+        img = tf.io.decode_jpeg(img)
         img = tf.image.resize_with_pad(img, 224, 224)
         img = tf.image.convert_image_dtype(img,tf.float32)[tf.newaxis, ...]
         features = m(img)
