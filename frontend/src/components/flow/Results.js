@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router'
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 import Layout from '../Layout'
 import Button from '../Button'
@@ -42,6 +44,7 @@ const Reference = ({ img }) => {
 }
 
 const Results = ({ winner, drawings, nextGameId }) => {
+  const { width, height } = useWindowSize()
   const history = useHistory()
   const { setId, playerId, refImage, setPlayerId, setFlowState, setRefImage } = useGameContext()
 
@@ -78,6 +81,8 @@ const Results = ({ winner, drawings, nextGameId }) => {
       </div>
 
       {nextGameId && <Button className='px-4 mt-4' onClick={() => newGame()}>Play again</Button>}
+
+      {iWon && <Confetti width={width} height={height} />}
     </Layout>
   )
 }
