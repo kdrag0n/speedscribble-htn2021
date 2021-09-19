@@ -6,7 +6,7 @@ import Layout from '../Layout'
 import Button from '../Button'
 
 import { useGameContext } from '../../store'
-import { baseUrl, fetcher } from '../../util'
+import { baseUrl, frontendBaseUrl, fetcher } from '../../util'
 
 const Waiting = () => {
   const { id, flowState, playerId, setPlayerId } = useGameContext()
@@ -20,7 +20,7 @@ const Waiting = () => {
     }
   }, [id, playerId, setPlayerId])
 
-  const url = `${baseUrl}/play/${id}`
+  const url = `${frontendBaseUrl}/play/${id}`
 
   const waitingEls = (
     <div className='w-full'>
