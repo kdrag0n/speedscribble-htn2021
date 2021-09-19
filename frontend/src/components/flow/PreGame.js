@@ -5,7 +5,7 @@ import Button from '../Button'
 
 const Waiting = ({ ready = false }) => {
   const { id } = useParams()
-  const url = `http://localhost:5000/play/${id}`
+  const url = `http://localhost:3000/play/${id}`
 
   const waitingEls = (
     <>
