@@ -20,16 +20,16 @@ const Countdown = ({ totalTime = 10, onCompleted = () => null }) => {
   }, [time, onCompleted])
 
   useEffect(() => {
-    let start = null;
+    let start = null
     let raf = null
 
-    let step = timestamp => {
+    let step = (timestamp) => {
       if (!start) start = timestamp
       let progress = timestamp - start
       setProgress(progress)
       if (progress > totalTime * 1000) return
       raf = requestAnimationFrame(step)
-    };
+    }
     raf = requestAnimationFrame(step)
 
     return () => {
