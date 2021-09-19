@@ -1,10 +1,14 @@
 import platform
 from pathlib import Path
+import logging
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
+logger = logging.getLogger('waitress')
+logger.setLevel(logging.INFO)
 
 def create_app():
     app = Flask(__name__)
