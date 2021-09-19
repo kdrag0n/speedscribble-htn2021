@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
 import { useHistory, useParams } from 'react-router'
+import useSWR from 'swr'
 
+import Layout from '../components/Layout'
 import PreGame from '../components/flow/PreGame'
 import Memorize from '../components/flow/Memorize'
 import Draw from '../components/flow/Draw'
@@ -9,8 +11,6 @@ import Results from '../components/flow/Results'
 
 import { baseUrl, fetcher } from '../util'
 import { useGameContext } from '../store'
-import useSWR from 'swr'
-import Layout from '../components/Layout'
 
 const Game = () => {
   const history = useHistory()
