@@ -9,7 +9,8 @@ def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://dragon@localhost:5432/htndraw'
     app.config['FRONTEND_BASE_URL'] = 'http://localhost:3000'
-    app.config['API_BASE_URL'] = 'http://localhost:5000'
+    #app.config['API_BASE_URL'] = 'http://localhost:5000'
+    app.config['API_BASE_URL'] = 'https://billy-moscow-empirical-particularly.trycloudflare.com'
     app.config['IMAGES_DIR'] = f'{Path().absolute()}/images'
 
     db.init_app(app)
