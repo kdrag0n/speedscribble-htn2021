@@ -24,29 +24,20 @@ m.build([None, 224, 224, 3])  # Batch input shape.
 def MLModel(reference, drawing):
     #OPENCV Edge detection
 
-    gray = cv2.imread('Bird-ML.jpg')
-    gray = cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(reference, 90, 100)
+    reference = cv2.bitwise_not(edges)
 
-    edges = cv2.Canny(gray, 90, 100)
-    Image = cv2.bitwise_not(edges)
-    cv2.imwrite("bird.png", Image)
+    edges = cv2.Canny(drawing, 90, 100)
+    drawing = cv2.bitwise_not(edges)
 
-    gray = cv2.imread('DrawBird.jpg')
-    gray = cv2.cvtColor(gray, cv2.COLOR_BGR2GRAY)
-
-    edges = cv2.Canny(gray, 90, 100)
-    Image = cv2.bitwise_not(edges)
-    cv2.imwrite("converted.png", Image)
-
-    helper = TensorVector("bird.png")
+    helper = TensorVector(reference)
     vector = helper.process()
-
-
-    helper = TensorVector("converted.png")
+    helper = TensorVector(drawing)
     vector2 = helper.process()
+
     print(vector)
     print(vector2)
-    cosineSim(vector, vector2)
+    return cosineSim(vector, vector2)
 
 
 def convertBase64(FileName):
@@ -68,12 +59,11 @@ def convertBase64(FileName):
 
 class TensorVector(object):
 
-    def __init__(self, FileName=None):
-        self.FileName = FileName
+    def __init__(self, file=None):
+        self.file = file
 
     def process(self):
-        img = tf.io.read_file(self.FileName)
-        img = tf.io.decode_jpeg(img, channels=3)
+        img = tf.io.decode_jpeg(self.file)
         img = tf.image.resize_with_pad(img, 224, 224)
         img = tf.image.convert_image_dtype(img,tf.float32)[tf.newaxis, ...]
         features = m(img)
