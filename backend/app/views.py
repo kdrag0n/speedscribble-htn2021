@@ -134,8 +134,8 @@ def submit_drawing(game_id):
         abort(400)
 
     # Block submissions 10 sec after game finish
-    if (datetime.now() - game.started_at).seconds() >= 10:
-        abort(400)
+    #if (datetime.now() - game.started_at).seconds() >= 10:
+    #    abort(400)
 
     # Read reference
     with open(safe_join('images', game.reference_image), 'rb') as f:
