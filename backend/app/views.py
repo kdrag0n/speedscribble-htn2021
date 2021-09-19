@@ -5,8 +5,6 @@ import time
 import uuid
 from datetime import datetime
 
-import cv2
-import numpy as np
 from flask import (Blueprint, abort, current_app, jsonify, request, safe_join,
                    send_file, send_from_directory)
 
@@ -26,7 +24,9 @@ def get_reference_image(path):
 @main.route('/assets/drawing_images/<path>')
 def get_drawing_image(path):
     drawing_id = path.replace('.png', '')
-    drawing = Drawing.query.filter_by(id=drawing_id)
+    drawing = Drawing.query.filter_by(id=drawing_id).first()
+    if not drawing:
+        abort(404)
 
     return send_file(
         io.BytesIO(drawing.image),
@@ -36,11 +36,21 @@ def get_drawing_image(path):
 
 @main.route('/api/v1/create_game', methods=['POST'])
 def create_game():
-    game_id = str(uuid.uuid4())
-    reference = random.choice(images)
-    game = Game(id=game_id, reference_image=reference, time_limit=30)
-    db.session.add(game)
-    db.session.commit()
+    game_id = request.args.get('id')
+    if not game_id:
+        game_id = str(uuid.uuid4())
+
+    # Ignore duplicate create request
+    if Game.query.filter_by(id=game_id).first() is None:
+        reference = random.choice(images)
+        game = Game(
+            id=game_id,
+            reference_image=reference,
+            time_limit=30,
+            next_game_id=str(uuid.uuid4()),
+        )
+        db.session.add(game)
+        db.session.commit()
 
     return jsonify({
         'url': f'{current_app.config["FRONTEND_BASE_URL"]}/play/{game_id}'
@@ -49,6 +59,8 @@ def create_game():
 @main.route('/api/v1/game/<game_id>/info', methods=['GET'])
 def get_game_info(game_id):
     game = Game.query.filter_by(id=game_id).first()
+    if not game:
+        abort(404)
     players = Player.query.filter_by(game_id=game_id).all()
     drawings = Drawing.query.filter_by(game_id=game_id).all()
 
@@ -56,6 +68,7 @@ def get_game_info(game_id):
     return jsonify({
         'time_limit': game.time_limit,
         'reference_image_url': f'{assets_base}/reference_images/{game.reference_image}',
+        'next_game_id': game.next_game_id,
 
         'players': len(players),
         'started': game.started,
@@ -86,6 +99,8 @@ def new_player(game_id):
 @main.route('/api/v1/game/<game_id>/start', methods=['POST'])
 def start_game(game_id):
     game = Game.query.filter_by(id=game_id).first()
+    if not game:
+        abort(404)
     players = Player.query.filter_by(game_id=game_id).all()
     if len(players) < 2:
         abort(400)
@@ -103,6 +118,8 @@ def submit_drawing(game_id):
     player_id = request.args.get('player')
     image = request.get_data(cache=False)
     game = Game.query.filter_by(id=game_id).first()
+    if not game:
+        abort(404)
     if game.finished or not game.started:
         abort(400)
 

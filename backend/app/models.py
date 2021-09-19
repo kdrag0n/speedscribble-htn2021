@@ -9,6 +9,7 @@ class Game(db.Model):
     started_at = db.Column(db.DateTime)
     winner_player_id = db.Column(db.Text)
     finished = db.Column(db.Boolean, nullable=False, default=False)
+    next_game_id = db.Column(db.Text, nullable=False)
 
 class Player(db.Model):
     id = db.Column(db.Text, primary_key=True, nullable=False)
